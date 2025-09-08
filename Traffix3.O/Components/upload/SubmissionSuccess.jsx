@@ -44,6 +44,9 @@ export default function SubmissionSuccess({ reportId, onNewReport }) {
                 ease: "easeOut"
               }}
             />
+          )
+          )
+          }
           <motion.div
             animate={{ scale: [1, 1.1, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
@@ -278,5 +281,6 @@ export default function SubmissionSuccess({ reportId, onNewReport }) {
         </motion.p>
       </div>
     </motion.div>
+  )
   );
 }
