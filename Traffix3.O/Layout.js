@@ -235,27 +235,11 @@ export default function Layout({ children, currentPageName }) {
                   <Shield className="w-6 h-6 text-white" />
                 </motion.div>
               </motion.div>
-                  rotate: [0, 5, -5, 0],
-                  scale: [1, 1.05, 1]
-                }}
-                transition={{ 
-                  duration: 3, 
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                <motion.div
-                  animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  <Shield className="w-6 h-6 text-white" />
-                </motion.div>
-              </motion.div>
               <div>
                 <h2 className="font-bold text-xl text-slate-800">Traffix</h2>
                 <p className="text-sm text-slate-500">AI Traffic Monitoring</p>
               </div>
-            </motion.div>
+            </div>
           </SidebarHeader>
           
           <SidebarContent className="p-4">
@@ -273,11 +257,6 @@ export default function Layout({ children, currentPageName }) {
                         transition={{ type: "spring", stiffness: 300 }}
                       >
                         <SidebarMenuButton 
-                        whileHover={{ scale: 1.02, x: 5 }}
-                        whileTap={{ scale: 0.98 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        <SidebarMenuButton 
                         asChild 
                         className={`hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 rounded-xl mb-2 ${
                           location.pathname === item.url ? 'bg-blue-50 text-blue-700 shadow-sm' : ''
@@ -290,15 +269,9 @@ export default function Layout({ children, currentPageName }) {
                           >
                             <item.icon className="w-5 h-5" />
                           </motion.div>
-                            animate={location.pathname === item.url ? { rotate: [0, 10, -10, 0] } : {}}
-                            transition={{ duration: 2, repeat: Infinity }}
-                          >
-                            <item.icon className="w-5 h-5" />
-                          </motion.div>
                           <span className="font-medium">{item.title}</span>
                         </Link>
                         </SidebarMenuButton>
-                      </motion.div>
                       </motion.div>
                     </SidebarMenuItem>
                   ))}
@@ -329,27 +302,8 @@ export default function Layout({ children, currentPageName }) {
                         animate={{ x: ['-100%', '100%'] }}
                         transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                       />
-                      className="bg-gradient-to-r from-blue-50 to-purple-50 p-3 rounded-lg relative overflow-hidden"
-                      animate={{
-                        boxShadow: [
-                          "0 0 10px rgba(59, 130, 246, 0.2)",
-                          "0 0 20px rgba(147, 51, 234, 0.3)",
-                          "0 0 10px rgba(59, 130, 246, 0.2)"
-                        ]
-                      }}
-                      transition={{ duration: 3, repeat: Infinity }}
-                    >
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-blue-100/30 via-transparent to-purple-100/30"
-                        animate={{ x: ['-100%', '100%'] }}
-                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                      />
                       <div className="flex items-center gap-3 mb-2">
                         <motion.div 
-                          className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm relative z-10"
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                        >
                           className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm relative z-10"
                           animate={{ rotate: 360 }}
                           transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
@@ -359,7 +313,7 @@ export default function Layout({ children, currentPageName }) {
                         <div>
                           <p className="font-semibold text-sm text-slate-800">{levelInfo.name}</p>
                           <p className="text-xs text-slate-600">{userProfile.total_points} points</p>
-                        </motion.div>
+                        </div>
                       </div>
                     </motion.div>
                     
@@ -376,7 +330,7 @@ export default function Layout({ children, currentPageName }) {
                         <span className="text-slate-600">Streak</span>
                         <span className="font-semibold text-orange-600">{userProfile.current_streak} days</span>
                       </div>
-                    </motion.div>
+                    </div>
                   </div>
                 </SidebarGroupContent>
               </SidebarGroup>
@@ -394,14 +348,6 @@ export default function Layout({ children, currentPageName }) {
                 animate={{ rotate: [0, 5, -5, 0] }}
                 transition={{ duration: 4, repeat: Infinity }}
               >
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <motion.div 
-                className="w-10 h-10 bg-gradient-to-r from-slate-400 to-slate-500 rounded-full flex items-center justify-center"
-                animate={{ rotate: [0, 5, -5, 0] }}
-                transition={{ duration: 4, repeat: Infinity }}
-              >
                 <Users className="w-5 h-5 text-white" />
               </motion.div>
               <div className="flex-1 min-w-0">
@@ -411,7 +357,7 @@ export default function Layout({ children, currentPageName }) {
                 <p className="text-xs text-slate-500 truncate capitalize">
                   {user?.role === 'admin' ? 'Traffic Authority' : 'Citizen Reporter'}
                 </p>
-              </motion.div>
+              </div>
             </motion.div>
           </SidebarFooter>
         </Sidebar>
