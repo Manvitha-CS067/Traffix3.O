@@ -23,8 +23,8 @@ import {
 import { motion } from "framer-motion";
 import { format } from "date-fns";
 
-import FleetOnboarding from "../components/fleet/FleetOnboarding";
-import FleetDashboard from "../components/fleet/FleetDashboard";
+import FleetOnboarding from "../Components/fleet/FleetOnboarding";
+import FleetDashboard from "../Components/fleet/FleetDashboard";
 
 export default function FleetManagementPage() {
   const [user, setUser] = useState(null);

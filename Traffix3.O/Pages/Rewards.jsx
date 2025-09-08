@@ -17,8 +17,8 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 
-import RewardCard from "../components/rewards/RewardCard";
-import RedeemModal from "../components/rewards/RedeemModal";
+import RewardCard from "../Components/rewards/RewardCard";
+import RedeemModal from "../Components/rewards/RedeemModal";
 
 export default function RewardsPage() {
   const [vouchers, setVouchers] = useState([]);

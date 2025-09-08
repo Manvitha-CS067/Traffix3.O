@@ -5,8 +5,6 @@ import { createPageUrl } from "@/utils";
 import { Shield, Upload, LayoutDashboard, Users, Trophy, Gift, Target, User as UserIcon, TrendingUp, Truck, Globe } from "lucide-react";
 import { motion } from "framer-motion";
 import CursorEffects from "@/components/ui/cursor-effects";
-import { motion } from "framer-motion";
-import CursorEffects from "@/components/ui/cursor-effects";
 import {
   Sidebar,
   SidebarContent,
@@ -185,22 +183,8 @@ export default function Layout({ children, currentPageName }) {
   return (
     <SidebarProvider>
       <CursorEffects />
-      <CursorEffects />
       <div className="min-h-screen flex w-full bg-gradient-to-br from-slate-50 to-blue-50">
         <Sidebar className="border-r border-slate-200 bg-white/90 backdrop-blur-sm relative overflow-hidden">
-          {/* Animated background */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-b from-blue-50/30 via-transparent to-purple-50/30"
-            animate={{
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-          
           {/* Animated background */}
           <motion.div
             className="absolute inset-0 bg-gradient-to-b from-blue-50/30 via-transparent to-purple-50/30"
@@ -234,7 +218,6 @@ export default function Layout({ children, currentPageName }) {
                 >
                   <Shield className="w-6 h-6 text-white" />
                 </motion.div>
-              </motion.div>
               <div>
                 <h2 className="font-bold text-xl text-slate-800">Traffix</h2>
                 <p className="text-sm text-slate-500">AI Traffic Monitoring</p>

@@ -20,10 +20,10 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 
-import ProfileStats from "../components/profile/ProfileStats";
-import BadgeCollection from "../components/profile/BadgeCollection";
-import RecentActivity from "../components/profile/RecentActivity";
-import ProgressTracker from "../components/profile/ProgressTracker";
+import ProfileStats from "../Components/profile/ProfileStats";
+import BadgeCollection from "../Components/profile/BadgeCollection";
+import RecentActivity from "../Components/profile/RecentActivity";
+import ProgressTracker from "../Components/profile/ProgressTracker";
 
 export default function ProfilePage() {
   const [user, setUser] = useState(null);

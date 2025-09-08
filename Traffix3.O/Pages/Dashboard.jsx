@@ -20,9 +20,9 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 
-import StatsOverview from "../components/dashboard/StatsOverview";
-import ReportsList from "../components/dashboard/ReportsList";
-import ReportDetailModal from "../components/dashboard/ReportDetailModal";
+import StatsOverview from "../Components/dashboard/StatsOverview";
+import ReportsList from "../Components/dashboard/ReportsList";
+import ReportDetailModal from "../Components/dashboard/ReportDetailModal";
 
 export default function DashboardPage() {
   const [user, setUser] = useState(null);

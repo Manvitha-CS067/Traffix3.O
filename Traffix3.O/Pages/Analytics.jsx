@@ -33,8 +33,8 @@ import {
 import { motion } from "framer-motion";
 import { format, subDays } from "date-fns";
 
-import HeatmapVisualization from "../components/analytics/HeatmapVisualization";
-import RevenueMetrics from "../components/analytics/RevenueMetrics";
+import HeatmapVisualization from "../Components/analytics/HeatmapVisualization";
+import RevenueMetrics from "../Components/analytics/RevenueMetrics";
 
 export default function AnalyticsPage() {
   const [user, setUser] = useState(null);

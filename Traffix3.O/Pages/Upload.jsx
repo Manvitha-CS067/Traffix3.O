@@ -25,9 +25,9 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import VideoUpload from "../components/upload/VideoUpload";
-import ProcessingStatus from "../components/upload/ProcessingStatus";
-import SubmissionSuccess from "../components/upload/SubmissionSuccess";
+import VideoUpload from "../Components/upload/VideoUpload";
+import ProcessingStatus from "../Components/upload/ProcessingStatus";
+import SubmissionSuccess from "../Components/upload/SubmissionSuccess";
 
 export default function UploadPage() {
   const [step, setStep] = useState(1); // 1: form, 2: processing, 3: success
