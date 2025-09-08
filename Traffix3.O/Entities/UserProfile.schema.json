@@ -1,0 +1,61 @@
+{
+  "name": "UserProfile",
+  "type": "object",
+  "properties": {
+    "user_email": {
+      "type": "string",
+      "description": "Email of the user (foreign key to User entity)"
+    },
+    "total_points": {
+      "type": "number",
+      "default": 0,
+      "description": "Total points earned by user"
+    },
+    "current_streak": {
+      "type": "number",
+      "default": 0,
+      "description": "Current consecutive days with reports"
+    },
+    "longest_streak": {
+      "type": "number",
+      "default": 0,
+      "description": "Longest streak achieved"
+    },
+    "total_reports": {
+      "type": "number",
+      "default": 0,
+      "description": "Total reports submitted"
+    },
+    "approved_reports": {
+      "type": "number",
+      "default": 0,
+      "description": "Total approved reports"
+    },
+    "credibility_score": {
+      "type": "number",
+      "default": 50,
+      "description": "Credibility score out of 100"
+    },
+    "city": {
+      "type": "string",
+      "description": "User's city for leaderboard rankings"
+    },
+    "level": {
+      "type": "number",
+      "default": 1,
+      "description": "User level based on points"
+    },
+    "last_report_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of last report submission"
+    },
+    "notification_preferences": {
+      "type": "object",
+      "description": "User notification settings"
+    }
+  },
+  "required": [
+    "user_email"
+  ]
+}

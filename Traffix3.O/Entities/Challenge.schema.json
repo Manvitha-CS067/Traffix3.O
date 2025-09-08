@@ -1,0 +1,70 @@
+{
+  "name": "Challenge",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Challenge title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Challenge description"
+    },
+    "challenge_type": {
+      "type": "string",
+      "enum": [
+        "daily",
+        "weekly",
+        "monthly",
+        "special_event"
+      ],
+      "description": "Type of challenge"
+    },
+    "target_violation": {
+      "type": "string",
+      "description": "Specific violation type to focus on"
+    },
+    "target_count": {
+      "type": "number",
+      "description": "Number of reports needed"
+    },
+    "points_multiplier": {
+      "type": "number",
+      "default": 1,
+      "description": "Points multiplier for this challenge"
+    },
+    "bonus_points": {
+      "type": "number",
+      "default": 0,
+      "description": "Bonus points for completion"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Challenge start date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Challenge end date"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether challenge is currently active"
+    },
+    "participant_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of participants"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "challenge_type",
+    "target_count",
+    "start_date",
+    "end_date"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "name": "ComplianceLog",
+  "type": "object",
+  "properties": {
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "data_access",
+        "report_approval",
+        "report_rejection",
+        "data_export",
+        "user_data_deletion",
+        "privacy_setting_change"
+      ],
+      "description": "Type of action performed"
+    },
+    "performed_by": {
+      "type": "string",
+      "description": "Email of user who performed action"
+    },
+    "target_data": {
+      "type": "string",
+      "description": "What data was affected"
+    },
+    "ip_address": {
+      "type": "string",
+      "description": "IP address of the action"
+    },
+    "user_agent": {
+      "type": "string",
+      "description": "Browser/device information"
+    },
+    "reason": {
+      "type": "string",
+      "description": "Reason for the action"
+    },
+    "compliance_notes": {
+      "type": "string",
+      "description": "Additional compliance notes"
+    }
+  },
+  "required": [
+    "action_type",
+    "performed_by",
+    "target_data"
+  ]
+}

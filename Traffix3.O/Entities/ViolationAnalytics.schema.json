@@ -1,0 +1,74 @@
+{
+  "name": "ViolationAnalytics",
+  "type": "object",
+  "properties": {
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of analytics record"
+    },
+    "city": {
+      "type": "string",
+      "description": "City for the analytics"
+    },
+    "state": {
+      "type": "string",
+      "description": "State for the analytics"
+    },
+    "violation_type": {
+      "type": "string",
+      "enum": [
+        "helmet_absence",
+        "overspeeding",
+        "red_light_jump",
+        "wrong_lane",
+        "mobile_use"
+      ],
+      "description": "Type of violation"
+    },
+    "total_reports": {
+      "type": "number",
+      "default": 0,
+      "description": "Total reports for this violation type"
+    },
+    "approved_reports": {
+      "type": "number",
+      "default": 0,
+      "description": "Approved reports"
+    },
+    "rejected_reports": {
+      "type": "number",
+      "default": 0,
+      "description": "Rejected reports"
+    },
+    "pending_reports": {
+      "type": "number",
+      "default": 0,
+      "description": "Pending reports"
+    },
+    "hotspot_locations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Top violation locations"
+    },
+    "revenue_generated": {
+      "type": "number",
+      "default": 0,
+      "description": "Revenue generated from verified reports"
+    },
+    "peak_hours": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Peak violation hours"
+    }
+  },
+  "required": [
+    "date",
+    "city",
+    "violation_type"
+  ]
+}

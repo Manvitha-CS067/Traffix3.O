@@ -1,0 +1,73 @@
+{
+  "name": "ViolationReport",
+  "type": "object",
+  "properties": {
+    "violation_type": {
+      "type": "string",
+      "enum": [
+        "helmet_absence",
+        "overspeeding",
+        "red_light_jump",
+        "wrong_lane",
+        "mobile_use"
+      ],
+      "description": "Type of traffic violation detected"
+    },
+    "original_video_url": {
+      "type": "string",
+      "description": "URL to the original uploaded video"
+    },
+    "processed_video_url": {
+      "type": "string",
+      "description": "URL to the privacy-processed video with blurred faces"
+    },
+    "location": {
+      "type": "string",
+      "description": "Location where violation occurred"
+    },
+    "license_plate": {
+      "type": "string",
+      "description": "Detected license plate number"
+    },
+    "ai_confidence": {
+      "type": "number",
+      "description": "AI confidence score for violation detection (0-100)"
+    },
+    "ai_detection_details": {
+      "type": "object",
+      "description": "Detailed AI analysis results"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "processing",
+        "pending_review",
+        "approved",
+        "rejected"
+      ],
+      "default": "processing",
+      "description": "Current status of the report"
+    },
+    "authority_notes": {
+      "type": "string",
+      "description": "Notes added by reviewing authority"
+    },
+    "reviewed_by": {
+      "type": "string",
+      "description": "Email of authority who reviewed the report"
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the report was reviewed"
+    },
+    "reporter_contact": {
+      "type": "string",
+      "description": "Contact information of the person reporting"
+    }
+  },
+  "required": [
+    "violation_type",
+    "original_video_url"
+  ]
+}

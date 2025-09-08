@@ -1,0 +1,28 @@
+{
+  "name": "UserBadge",
+  "type": "object",
+  "properties": {
+    "user_email": {
+      "type": "string",
+      "description": "User who earned the badge"
+    },
+    "badge_id": {
+      "type": "string",
+      "description": "Badge that was earned"
+    },
+    "earned_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When badge was earned"
+    },
+    "report_id": {
+      "type": "string",
+      "description": "Report that triggered the badge (if applicable)"
+    }
+  },
+  "required": [
+    "user_email",
+    "badge_id",
+    "earned_date"
+  ]
+}

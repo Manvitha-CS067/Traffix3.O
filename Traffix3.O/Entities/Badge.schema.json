@@ -1,0 +1,68 @@
+{
+  "name": "Badge",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Badge name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Badge description"
+    },
+    "icon": {
+      "type": "string",
+      "description": "Badge icon name"
+    },
+    "color": {
+      "type": "string",
+      "description": "Badge color theme"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "violation_type",
+        "streak",
+        "milestone",
+        "special",
+        "challenge"
+      ],
+      "description": "Badge category"
+    },
+    "requirement_type": {
+      "type": "string",
+      "enum": [
+        "report_count",
+        "violation_specific",
+        "streak",
+        "points",
+        "special"
+      ],
+      "description": "How to earn this badge"
+    },
+    "requirement_value": {
+      "type": "number",
+      "description": "Value needed to earn badge"
+    },
+    "violation_type": {
+      "type": "string",
+      "description": "Specific violation type for violation-specific badges"
+    },
+    "points_reward": {
+      "type": "number",
+      "default": 50,
+      "description": "Points awarded when badge is earned"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether badge is currently available"
+    }
+  },
+  "required": [
+    "name",
+    "description",
+    "category",
+    "requirement_type"
+  ]
+}

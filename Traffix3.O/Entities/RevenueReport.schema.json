@@ -1,0 +1,52 @@
+{
+  "name": "RevenueReport",
+  "type": "object",
+  "properties": {
+    "report_id": {
+      "type": "string",
+      "description": "Reference to ViolationReport ID"
+    },
+    "challan_amount": {
+      "type": "number",
+      "description": "Total challan amount"
+    },
+    "traffix_fee_percentage": {
+      "type": "number",
+      "default": 7.5,
+      "description": "Percentage fee for Traffix"
+    },
+    "traffix_earnings": {
+      "type": "number",
+      "description": "Traffix earnings from this report"
+    },
+    "authority": {
+      "type": "string",
+      "description": "Authority that processed the challan"
+    },
+    "payment_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "paid",
+        "disputed"
+      ],
+      "default": "pending",
+      "description": "Payment status"
+    },
+    "processed_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When revenue was processed"
+    },
+    "settlement_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When payment was settled"
+    }
+  },
+  "required": [
+    "report_id",
+    "challan_amount",
+    "authority"
+  ]
+}

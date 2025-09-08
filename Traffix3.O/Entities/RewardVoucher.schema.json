@@ -1,0 +1,70 @@
+{
+  "name": "RewardVoucher",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Voucher title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Voucher description"
+    },
+    "partner_name": {
+      "type": "string",
+      "description": "Partner company name"
+    },
+    "voucher_type": {
+      "type": "string",
+      "enum": [
+        "discount",
+        "cashback",
+        "freebie",
+        "experience"
+      ],
+      "description": "Type of voucher"
+    },
+    "points_cost": {
+      "type": "number",
+      "description": "Points required to redeem"
+    },
+    "discount_amount": {
+      "type": "number",
+      "description": "Discount amount or percentage"
+    },
+    "max_redemptions": {
+      "type": "number",
+      "description": "Maximum number of redemptions allowed"
+    },
+    "current_redemptions": {
+      "type": "number",
+      "default": 0,
+      "description": "Current number of redemptions"
+    },
+    "expiry_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Voucher expiry date"
+    },
+    "terms_conditions": {
+      "type": "string",
+      "description": "Terms and conditions"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether voucher is currently available"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Voucher image URL"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "partner_name",
+    "voucher_type",
+    "points_cost"
+  ]
+}

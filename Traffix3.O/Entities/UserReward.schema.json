@@ -1,0 +1,43 @@
+{
+  "name": "UserReward",
+  "type": "object",
+  "properties": {
+    "user_email": {
+      "type": "string",
+      "description": "User who redeemed the reward"
+    },
+    "voucher_id": {
+      "type": "string",
+      "description": "Voucher that was redeemed"
+    },
+    "points_spent": {
+      "type": "number",
+      "description": "Points spent on redemption"
+    },
+    "redemption_code": {
+      "type": "string",
+      "description": "Unique redemption code"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "used",
+        "expired"
+      ],
+      "default": "active",
+      "description": "Reward status"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When reward expires"
+    }
+  },
+  "required": [
+    "user_email",
+    "voucher_id",
+    "points_spent",
+    "redemption_code"
+  ]
+}
