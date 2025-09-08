@@ -44,12 +44,48 @@ export default function SubmissionSuccess({ reportId, onNewReport }) {
                 ease: "easeOut"
               }}
             />
+          <motion.div
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <CheckCircle2 className="w-12 h-12 text-white" />
+          </motion.div>
+          
+          {/* Success sparkles */}
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 bg-yellow-300 rounded-full"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{
+                scale: [0, 1, 0],
+                opacity: [0, 1, 0],
+                x: [0, (Math.cos(i * 60 * Math.PI / 180) * 40)],
+                y: [0, (Math.sin(i * 60 * Math.PI / 180) * 40)],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                delay: i * 0.2,
+                ease: "easeOut"
+              }}
+            />
           ))}
         </motion.div>
         <h2 className="text-3xl font-bold text-slate-800 mb-2">Report Submitted Successfully!</h2>
         <p className="text-slate-600">AI analysis complete! Your violation report has been processed and sent to authorities.</p>
       </div>
 
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+      >
+        <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm mb-8 relative overflow-hidden">
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-r from-green-100/30 via-transparent to-blue-100/30"
+            animate={{ x: ['-100%', '100%'] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -68,8 +104,17 @@ export default function SubmissionSuccess({ reportId, onNewReport }) {
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
+              className="flex items-center justify-between p-4 bg-blue-50 rounded-lg relative z-10"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
               <div className="flex items-center gap-3">
                 <motion.div
+                  animate={{ rotate: [0, 10, -10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <FileText className="w-6 h-6 text-blue-600" />
+                </motion.div>
                   animate={{ rotate: [0, 10, -10, 0] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 >
@@ -110,18 +155,45 @@ export default function SubmissionSuccess({ reportId, onNewReport }) {
                 whileHover={{ scale: 1.02 }}
               >
                 <div className="flex items-center gap-2 mb-2">
+              <motion.div 
+                className="p-4 bg-green-50 rounded-lg"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.6 }}
+                whileHover={{ scale: 1.02 }}
+              >
+                    animate={{ rotate: [0, 15, -15, 0] }}
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  >
+                    <Brain className="w-5 h-5 text-green-600" />
+                  </motion.div>
+                  >
+                    <Clock className="w-5 h-5 text-amber-600" />
+                <p className="text-sm text-green-700">Advanced AI detected violations, extracted license plates, and protected privacy</p>
+              </motion.div>
+                </div>
+              <motion.div 
+                className="p-4 bg-amber-50 rounded-lg"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.8 }}
+                whileHover={{ scale: 1.02 }}
+              >
+              </motion.div>
                   <motion.div
                     animate={{ rotate: [0, 15, -15, 0] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
                     <Clock className="w-5 h-5 text-amber-600" />
                   </motion.div>
-                  <span className="font-semibold text-amber-800">Pending Review</span>
-                </div>
-                <p className="text-sm text-amber-700">Awaiting authority review</p>
-              </motion.div>
-            </div>
 
+            <motion.div 
+              className="p-4 bg-slate-50 rounded-lg"
+              </motion.div>
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1 }}
             <motion.div 
               className="p-4 bg-slate-50 rounded-lg"
               initial={{ opacity: 0, y: 20 }}
@@ -146,15 +218,35 @@ export default function SubmissionSuccess({ reportId, onNewReport }) {
                   <CheckCircle2 className="w-3 h-3 text-green-500" />
                   Violation may result in official e-challan
                 </li>
+                <li className="flex items-center gap-2">
+                  <Brain className="w-3 h-3 text-purple-500" />
+                  Advanced analysis and license plate data verified
+                </li>
+                <li className="flex items-center gap-2">
+                  <Sparkles className="w-3 h-3 text-yellow-500" />
+                  You'll earn points when report is approved
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3 h-3 text-green-500" />
+                  Violation may result in official e-challan
+                </li>
               </ul>
             </motion.div>
           </div>
         </CardContent>
         </Card>
       </motion.div>
+      </motion.div>
 
       <div className="space-y-4">
         <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <EnhancedButton
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2 }}
@@ -169,8 +261,14 @@ export default function SubmissionSuccess({ reportId, onNewReport }) {
           Submit Another Report
           </EnhancedButton>
         </motion.div>
+        </motion.div>
         
         <motion.p 
+          className="text-xs text-slate-500 text-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.4 }}
+        >
           className="text-xs text-slate-500 text-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
