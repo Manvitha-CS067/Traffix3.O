@@ -1,8 +1,8 @@
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import EnhancedButton from "@/components/ui/enhanced-button";
 import { motion } from "framer-motion";
-import { CheckCircle2, FileText, Clock, Plus } from "lucide-react";
+import { CheckCircle2, FileText, Clock, Plus, Sparkles, Shield, Brain } from "lucide-react";
 
 export default function SubmissionSuccess({ reportId, onNewReport }) {
   return (
@@ -15,71 +15,169 @@ export default function SubmissionSuccess({ reportId, onNewReport }) {
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-          className="w-24 h-24 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg"
+          transition={{ delay: 0.2, type: "spring", stiffness: 200, damping: 10 }}
+          className="w-24 h-24 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg relative"
         >
-          <CheckCircle2 className="w-12 h-12 text-white" />
+          <motion.div
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <CheckCircle2 className="w-12 h-12 text-white" />
+          </motion.div>
+          
+          {/* Success sparkles */}
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 bg-yellow-300 rounded-full"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{
+                scale: [0, 1, 0],
+                opacity: [0, 1, 0],
+                x: [0, (Math.cos(i * 60 * Math.PI / 180) * 40)],
+                y: [0, (Math.sin(i * 60 * Math.PI / 180) * 40)],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                delay: i * 0.2,
+                ease: "easeOut"
+              }}
+            />
+          ))}
         </motion.div>
         <h2 className="text-3xl font-bold text-slate-800 mb-2">Report Submitted Successfully!</h2>
-        <p className="text-slate-600">Your traffic violation report has been processed and sent to authorities for review.</p>
+        <p className="text-slate-600">AI analysis complete! Your violation report has been processed and sent to authorities.</p>
       </div>
 
-      <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm mb-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+      >
+        <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm mb-8 relative overflow-hidden">
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-r from-green-100/30 via-transparent to-blue-100/30"
+            animate={{ x: ['-100%', '100%'] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+          />
         <CardContent className="p-8">
           <div className="space-y-6">
-            <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
+            <motion.div 
+              className="flex items-center justify-between p-4 bg-blue-50 rounded-lg relative z-10"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
               <div className="flex items-center gap-3">
-                <FileText className="w-6 h-6 text-blue-600" />
+                <motion.div
+                  animate={{ rotate: [0, 10, -10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <FileText className="w-6 h-6 text-blue-600" />
+                </motion.div>
                 <div className="text-left">
                   <p className="font-semibold text-slate-800">Report ID</p>
                   <p className="text-sm text-slate-600">#{reportId?.slice(0, 8).toUpperCase()}</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             <div className="grid md:grid-cols-2 gap-4">
-              <div className="p-4 bg-green-50 rounded-lg">
+              <motion.div 
+                className="p-4 bg-green-50 rounded-lg"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.6 }}
+                whileHover={{ scale: 1.02 }}
+              >
                 <div className="flex items-center gap-2 mb-2">
-                  <CheckCircle2 className="w-5 h-5 text-green-600" />
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  >
+                    <Brain className="w-5 h-5 text-green-600" />
+                  </motion.div>
                   <span className="font-semibold text-green-800">AI Analysis Complete</span>
                 </div>
-                <p className="text-sm text-green-700">Video analyzed and violation detected</p>
-              </div>
+                <p className="text-sm text-green-700">Advanced AI detected violations, extracted license plates, and protected privacy</p>
+              </motion.div>
 
-              <div className="p-4 bg-amber-50 rounded-lg">
+              <motion.div 
+                className="p-4 bg-amber-50 rounded-lg"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.8 }}
+                whileHover={{ scale: 1.02 }}
+              >
                 <div className="flex items-center gap-2 mb-2">
-                  <Clock className="w-5 h-5 text-amber-600" />
+                  <motion.div
+                    animate={{ rotate: [0, 15, -15, 0] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    <Clock className="w-5 h-5 text-amber-600" />
+                  </motion.div>
                   <span className="font-semibold text-amber-800">Pending Review</span>
                 </div>
                 <p className="text-sm text-amber-700">Awaiting authority review</p>
-              </div>
+              </motion.div>
             </div>
 
-            <div className="p-4 bg-slate-50 rounded-lg">
+            <motion.div 
+              className="p-4 bg-slate-50 rounded-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1 }}
+            >
               <h3 className="font-semibold text-slate-800 mb-2">What happens next?</h3>
               <ul className="text-sm text-slate-600 space-y-1">
-                <li>• Traffic authorities will review your report</li>
-                <li>• AI analysis and evidence will be verified</li>
-                <li>• You'll be notified if follow-up is needed</li>
-                <li>• The violation may result in official action</li>
+                <li className="flex items-center gap-2">
+                  <Shield className="w-3 h-3 text-blue-500" />
+                  Traffic authorities will review AI-processed evidence
+                </li>
+                <li className="flex items-center gap-2">
+                  <Brain className="w-3 h-3 text-purple-500" />
+                  Advanced analysis and license plate data verified
+                </li>
+                <li className="flex items-center gap-2">
+                  <Sparkles className="w-3 h-3 text-yellow-500" />
+                  You'll earn points when report is approved
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3 h-3 text-green-500" />
+                  Violation may result in official e-challan
+                </li>
               </ul>
-            </div>
+            </motion.div>
           </div>
         </CardContent>
-      </Card>
+        </Card>
+      </motion.div>
 
       <div className="space-y-4">
-        <Button
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <EnhancedButton
           onClick={onNewReport}
           className="w-full h-12 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl shadow-lg"
         >
           <Plus className="w-5 h-5 mr-2" />
           Submit Another Report
-        </Button>
+          </EnhancedButton>
+        </motion.div>
         
-        <p className="text-xs text-slate-500">
+        <motion.p 
+          className="text-xs text-slate-500 text-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.4 }}
+        >
           Keep your dashcam footage until the case is resolved. Thank you for helping make roads safer.
-        </p>
+        </motion.p>
       </div>
     </motion.div>
   );

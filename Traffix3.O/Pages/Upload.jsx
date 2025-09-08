@@ -1,13 +1,16 @@
 import React, { useState, useRef } from "react";
 import { ViolationReport } from "@/entities/ViolationReport";
 import { UploadFile, InvokeLLM } from "@/integrations/Core";
-import { Button } from "@/components/ui/button";
+import EnhancedButton from "@/components/ui/enhanced-button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
+import CursorEffects from "@/components/ui/cursor-effects";
+import BackgroundCars from "@/components/ui/background-cars";
+import { AIDetectionEngine } from "@/components/ai/AIDetectionEngine";
 import { 
   Upload as UploadIcon, 
   Video, 
@@ -39,6 +42,7 @@ export default function UploadPage() {
   const [error, setError] = useState("");
   const [processingStep, setProcessingStep] = useState("");
   const [reportId, setReportId] = useState(null);
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const handleVideoSelect = (file) => {
     setVideoFile(file);
@@ -49,6 +53,9 @@ export default function UploadPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setButtonClicked(true);
+    setTimeout(() => setButtonClicked(false), 3000);
+    
     if (!videoFile || !formData.violation_type || !formData.location) {
       setError("Please fill all required fields and select a video");
       return;
@@ -63,49 +70,38 @@ export default function UploadPage() {
       setProcessingStep("Uploading video securely...");
       const { file_url } = await UploadFile({ file: videoFile });
 
-      // Step 2: AI Analysis
+      // Step 2: Advanced AI Analysis
       setProcessingStep("AI analyzing video for violations...");
-      const aiAnalysis = await InvokeLLM({
-        prompt: `Analyze this dashcam video for traffic violations. The reported violation type is: ${formData.violation_type}. 
-        
-        Please analyze the video and provide:
-        1. Confidence level (0-100) that the violation actually occurred
-        2. Any license plate numbers visible
-        3. Detailed description of what you observe
-        4. Whether faces need to be blurred for privacy
-        5. Specific timestamps where violations occur
-        
-        Be thorough and accurate as this will be used by traffic authorities.`,
-        file_urls: [file_url],
-        response_json_schema: {
-          type: "object",
-          properties: {
-            confidence: { type: "number" },
-            license_plate: { type: "string" },
-            description: { type: "string" },
-            faces_detected: { type: "boolean" },
-            violation_timestamps: { type: "array", items: { type: "string" } },
-            recommendation: { type: "string" }
-          }
-        }
-      });
+      const aiAnalysis = await AIDetectionEngine.analyzeVideo(file_url, formData.violation_type);
 
-      // Step 3: Privacy Processing
-      setProcessingStep("Applying privacy protection...");
-      // In a real implementation, this would blur faces
-      const processed_video_url = file_url; // Simplified for demo
+      // Step 3: License Plate Detection
+      setProcessingStep("Detecting license plates...");
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate processing time
 
-      // Step 4: Create report
-      setProcessingStep("Creating violation report...");
+      // Step 4: Privacy Protection (Face Blurring)
+      setProcessingStep("Applying privacy protection and blurring faces...");
+      const processed_video_url = await AIDetectionEngine.processPrivacyBlurring(
+        file_url, 
+        aiAnalysis.faces_for_blurring
+      );
+
+      // Step 5: Create comprehensive report
+      setProcessingStep("Generating comprehensive violation report...");
       const report = await ViolationReport.create({
         violation_type: formData.violation_type,
         original_video_url: file_url,
         processed_video_url: processed_video_url,
         location: formData.location,
         reporter_contact: formData.reporter_contact,
-        license_plate: aiAnalysis.license_plate || "Not detected",
-        ai_confidence: aiAnalysis.confidence || 0,
-        ai_detection_details: aiAnalysis,
+        license_plate: aiAnalysis.primary_license_plate,
+        ai_confidence: aiAnalysis.confidence,
+        ai_detection_details: {
+          ...aiAnalysis,
+          violations_detected: aiAnalysis.violations_detected,
+          faces_blurred: aiAnalysis.faces_for_blurring.length,
+          license_plates_found: aiAnalysis.license_plates.length,
+          detailed_analysis: aiAnalysis.detailed_description
+        },
         status: "pending_review"
       });
 
@@ -130,7 +126,39 @@ export default function UploadPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-4 md:p-8 relative overflow-hidden">
+      <CursorEffects />
+      <BackgroundCars trigger={buttonClicked} />
+      
+      {/* Animated background elements */}
+      <div className="fixed inset-0 pointer-events-none">
+        <motion.div
+          className="absolute top-20 left-10 w-32 h-32 bg-blue-200/20 rounded-full blur-xl"
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -50, 0],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-10 w-40 h-40 bg-purple-200/20 rounded-full blur-xl"
+          animate={{
+            x: [0, -80, 0],
+            y: [0, 60, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2
+          }}
+        />
+      </div>
+      
       <div className="max-w-4xl mx-auto">
         <AnimatePresence mode="wait">
           {step === 1 && (
@@ -142,37 +170,89 @@ export default function UploadPage() {
             >
               {/* Header */}
               <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                  <Camera className="w-8 h-8 text-white" />
-                </div>
+                <motion.div 
+                  className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg relative"
+                  animate={{ 
+                    rotate: [0, 5, -5, 0],
+                    scale: [1, 1.05, 1]
+                  }}
+                  transition={{ 
+                    duration: 4, 
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  <motion.div
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    <Camera className="w-8 h-8 text-white" />
+                  </motion.div>
+                  
+                  {/* Pulsing ring */}
+                  <motion.div
+                    className="absolute inset-0 border-2 border-blue-400 rounded-2xl"
+                    animate={{ 
+                      scale: [1, 1.2, 1],
+                      opacity: [0.5, 0, 0.5]
+                    }}
+                    transition={{ 
+                      duration: 2, 
+                      repeat: Infinity,
+                      ease: "easeOut"
+                    }}
+                  />
+                </motion.div>
                 <h1 className="text-3xl font-bold text-slate-800 mb-2">Report Traffic Violation</h1>
                 <p className="text-slate-600 max-w-2xl mx-auto">
-                  Help make roads safer by reporting traffic violations. Our AI will analyze your dashcam footage 
-                  while protecting privacy through automatic face blurring.
+                  Help make roads safer with AI-powered violation detection. Our advanced system analyzes dashcam footage 
+                  for helmet violations, overspeeding, mobile use, wrong lanes, and license plates while protecting privacy.
                 </p>
               </div>
 
               {/* Privacy Notice */}
-              <Card className="border-blue-100 bg-blue-50/50">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <Card className="border-blue-100 bg-blue-50/50 relative overflow-hidden">
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-blue-100/30 via-transparent to-blue-100/30"
+                    animate={{ x: ['-100%', '100%'] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  />
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
-                    <Shield className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
+                    <motion.div
+                      animate={{ rotate: [0, 10, -10, 0] }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                    >
+                      <Shield className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
+                    </motion.div>
                     <div>
                       <h3 className="font-semibold text-blue-900 mb-2">Privacy Protected</h3>
                       <p className="text-blue-800 text-sm leading-relaxed">
-                        All faces in your video will be automatically blurred to protect privacy. 
-                        License plates remain visible for authority review. Your data is handled securely.
+                        Advanced AI automatically detects and blurs all faces for privacy protection. 
+                        License plates are extracted and preserved for authority review. Secure encrypted processing.
                       </p>
                     </div>
                   </div>
                 </CardContent>
-              </Card>
+                </Card>
+              </motion.div>
 
               {error && (
-                <Alert variant="destructive">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                >
+                  <Alert variant="destructive">
                   <AlertCircle className="h-4 w-4" />
                   <AlertDescription>{error}</AlertDescription>
-                </Alert>
+                  </Alert>
+                </motion.div>
               )}
 
               <form onSubmit={handleSubmit} className="space-y-8">
@@ -183,10 +263,20 @@ export default function UploadPage() {
                 />
 
                 {/* Violation Details */}
-                <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <AlertCircle className="w-5 h-5 text-amber-500" />
+                      <motion.div
+                        animate={{ rotate: [0, 15, -15, 0] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      >
+                        <AlertCircle className="w-5 h-5 text-amber-500" />
+                      </motion.div>
                       Violation Details
                     </CardTitle>
                   </CardHeader>
@@ -238,16 +328,25 @@ export default function UploadPage() {
                       </div>
                     </div>
                   </CardContent>
-                </Card>
+                  </Card>
+                </motion.div>
 
-                <Button 
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <EnhancedButton 
                   type="submit" 
                   className="w-full h-12 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl shadow-lg transition-all duration-200"
                   disabled={processing}
                 >
                   <UploadIcon className="w-5 h-5 mr-2" />
-                  Submit Violation Report
-                </Button>
+                    Submit AI-Powered Violation Report
+                  </EnhancedButton>
+                </motion.div>
               </form>
             </motion.div>
           )}

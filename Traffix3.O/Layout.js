@@ -3,6 +3,8 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Shield, Upload, LayoutDashboard, Users, Trophy, Gift, Target, User as UserIcon, TrendingUp, Truck, Globe } from "lucide-react";
+import { motion } from "framer-motion";
+import CursorEffects from "@/components/ui/cursor-effects";
 import {
   Sidebar,
   SidebarContent,
@@ -180,13 +182,43 @@ export default function Layout({ children, currentPageName }) {
 
   return (
     <SidebarProvider>
+      <CursorEffects />
       <div className="min-h-screen flex w-full bg-gradient-to-br from-slate-50 to-blue-50">
-        <Sidebar className="border-r border-slate-200 bg-white/90 backdrop-blur-sm">
+        <Sidebar className="border-r border-slate-200 bg-white/90 backdrop-blur-sm relative overflow-hidden">
+          {/* Animated background */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-b from-blue-50/30 via-transparent to-purple-50/30"
+            animate={{
+              opacity: [0.3, 0.6, 0.3],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          
           <SidebarHeader className="border-b border-slate-200 p-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-navy-600 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                <Shield className="w-6 h-6 text-white" />
-              </div>
+              <motion.div 
+                className="w-10 h-10 bg-gradient-to-br from-navy-600 to-blue-600 rounded-xl flex items-center justify-center shadow-lg relative z-10"
+                animate={{ 
+                  rotate: [0, 5, -5, 0],
+                  scale: [1, 1.05, 1]
+                }}
+                transition={{ 
+                  duration: 3, 
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <motion.div
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <Shield className="w-6 h-6 text-white" />
+                </motion.div>
+              </motion.div>
               <div>
                 <h2 className="font-bold text-xl text-slate-800">Traffix</h2>
                 <p className="text-sm text-slate-500">AI Traffic Monitoring</p>
@@ -203,17 +235,28 @@ export default function Layout({ children, currentPageName }) {
                 <SidebarMenu>
                   {availableItems.map((item) => (
                     <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton 
+                      <motion.div
+                        whileHover={{ scale: 1.02, x: 5 }}
+                        whileTap={{ scale: 0.98 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        <SidebarMenuButton 
                         asChild 
                         className={`hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 rounded-xl mb-2 ${
                           location.pathname === item.url ? 'bg-blue-50 text-blue-700 shadow-sm' : ''
                         }`}
                       >
                         <Link to={item.url} className="flex items-center gap-3 px-4 py-3">
-                          <item.icon className="w-5 h-5" />
+                          <motion.div
+                            animate={location.pathname === item.url ? { rotate: [0, 10, -10, 0] } : {}}
+                            transition={{ duration: 2, repeat: Infinity }}
+                          >
+                            <item.icon className="w-5 h-5" />
+                          </motion.div>
                           <span className="font-medium">{item.title}</span>
                         </Link>
-                      </SidebarMenuButton>
+                        </SidebarMenuButton>
+                      </motion.div>
                     </SidebarMenuItem>
                   ))}
                 </SidebarMenu>
@@ -227,17 +270,36 @@ export default function Layout({ children, currentPageName }) {
                 </SidebarGroupLabel>
                 <SidebarGroupContent>
                   <div className="px-3 py-3 space-y-3">
-                    <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-3 rounded-lg">
+                    <motion.div 
+                      className="bg-gradient-to-r from-blue-50 to-purple-50 p-3 rounded-lg relative overflow-hidden"
+                      animate={{
+                        boxShadow: [
+                          "0 0 10px rgba(59, 130, 246, 0.2)",
+                          "0 0 20px rgba(147, 51, 234, 0.3)",
+                          "0 0 10px rgba(59, 130, 246, 0.2)"
+                        ]
+                      }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                    >
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-blue-100/30 via-transparent to-purple-100/30"
+                        animate={{ x: ['-100%', '100%'] }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                      />
                       <div className="flex items-center gap-3 mb-2">
-                        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                        <motion.div 
+                          className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm relative z-10"
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                        >
                           {levelInfo.level}
-                        </div>
+                        </motion.div>
                         <div>
                           <p className="font-semibold text-sm text-slate-800">{levelInfo.name}</p>
                           <p className="text-xs text-slate-600">{userProfile.total_points} points</p>
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                     
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
@@ -260,10 +322,18 @@ export default function Layout({ children, currentPageName }) {
           </SidebarContent>
 
           <SidebarFooter className="border-t border-slate-200 p-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-slate-400 to-slate-500 rounded-full flex items-center justify-center">
+            <motion.div 
+              className="flex items-center gap-3"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <motion.div 
+                className="w-10 h-10 bg-gradient-to-r from-slate-400 to-slate-500 rounded-full flex items-center justify-center"
+                animate={{ rotate: [0, 5, -5, 0] }}
+                transition={{ duration: 4, repeat: Infinity }}
+              >
                 <Users className="w-5 h-5 text-white" />
-              </div>
+              </motion.div>
               <div className="flex-1 min-w-0">
                 <p className="font-semibold text-slate-800 text-sm truncate">
                   {user?.full_name || "User"}
@@ -272,7 +342,7 @@ export default function Layout({ children, currentPageName }) {
                   {user?.role === 'admin' ? 'Traffic Authority' : 'Citizen Reporter'}
                 </p>
               </div>
-            </div>
+            </motion.div>
           </SidebarFooter>
         </Sidebar>
 
