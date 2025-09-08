@@ -56,6 +56,9 @@ export default function SubmissionSuccess({ reportId, onNewReport }) {
           
           {/* Success sparkles */}
           {[...Array(6)].map((_, i) => (
+          )
+          )
+          }
         <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm mb-8 relative overflow-hidden">
           <motion.div
             className="absolute inset-0 bg-gradient-to-r from-green-100/30 via-transparent to-blue-100/30"
@@ -161,4 +164,6 @@ export default function SubmissionSuccess({ reportId, onNewReport }) {
       </div>
     </motion.div>
   );
+}
+  )
 }
