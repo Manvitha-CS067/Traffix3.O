@@ -44,35 +44,6 @@ export default function SubmissionSuccess({ reportId, onNewReport }) {
                 ease: "easeOut"
               }}
             />
-          )
-          )
-          }
-          <motion.div
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <CheckCircle2 className="w-12 h-12 text-white" />
-          </motion.div>
-          
-          {/* Success sparkles */}
-          {[...Array(6)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-2 h-2 bg-yellow-300 rounded-full"
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{
-                scale: [0, 1, 0],
-                opacity: [0, 1, 0],
-                x: [0, (Math.cos(i * 60 * Math.PI / 180) * 40)],
-                y: [0, (Math.sin(i * 60 * Math.PI / 180) * 40)],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                delay: i * 0.2,
-                ease: "easeOut"
-              }}
-            />
           ))}
         </motion.div>
       </div>
@@ -197,6 +168,4 @@ export default function SubmissionSuccess({ reportId, onNewReport }) {
       </div>
     </motion.div>
   );
-}
-  )
 }
