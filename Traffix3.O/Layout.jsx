@@ -187,18 +187,6 @@ export default function Layout({ children, currentPageName }) {
         <Sidebar className="border-r border-slate-200 bg-white/90 backdrop-blur-sm relative overflow-hidden">
           {/* Animated background */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-b from-blue-50/30 via-transparent to-purple-50/30"
-            animate={{
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-          
-          <SidebarHeader className="border-b border-slate-200 p-6">
             <div className="flex items-center gap-3">
               <motion.div 
                 className="w-10 h-10 bg-gradient-to-br from-navy-600 to-blue-600 rounded-xl flex items-center justify-center shadow-lg relative z-10"
@@ -322,18 +310,10 @@ export default function Layout({ children, currentPageName }) {
           </SidebarContent>
 
           <SidebarFooter className="border-t border-slate-200 p-4">
-            <motion.div 
-              className="flex items-center gap-3"
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <motion.div 
-                className="w-10 h-10 bg-gradient-to-r from-slate-400 to-slate-500 rounded-full flex items-center justify-center"
-                animate={{ rotate: [0, 5, -5, 0] }}
-                transition={{ duration: 4, repeat: Infinity }}
-              >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-r from-slate-400 to-slate-500 rounded-full flex items-center justify-center">
                 <Users className="w-5 h-5 text-white" />
-              </motion.div>
+              </div>
               <div className="flex-1 min-w-0">
                 <p className="font-semibold text-slate-800 text-sm truncate">
                   {user?.full_name || "User"}
@@ -342,7 +322,7 @@ export default function Layout({ children, currentPageName }) {
                   {user?.role === 'admin' ? 'Traffic Authority' : 'Citizen Reporter'}
                 </p>
               </div>
-            </motion.div>
+            </div>
           </SidebarFooter>
         </Sidebar>
 
