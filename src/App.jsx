@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Layout from '../Traffix3.O/Layout.js'
+import Layout from '../Traffix3.O/Layout.jsx'
 import Dashboard from '../Traffix3.O/Pages/Dashboard.jsx'
 import Upload from '../Traffix3.O/Pages/Upload.jsx'
 import Profile from '../Traffix3.O/Pages/Profile.jsx'

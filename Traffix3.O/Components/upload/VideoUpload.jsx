@@ -3,7 +3,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import EnhancedButton from "@/components/ui/enhanced-button";
 import { Video, Upload, X, Play } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { motion, AnimatePresence } from "framer-motion";
 
 export default function VideoUpload({ onVideoSelect, videoPreview, videoFile }) {
   const handleFileSelect = (e) => {

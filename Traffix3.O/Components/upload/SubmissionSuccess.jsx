@@ -56,14 +56,33 @@ export default function SubmissionSuccess({ reportId, onNewReport }) {
           
           {/* Success sparkles */}
           {[...Array(6)].map((_, i) => (
-          )
-          )
-          }
-        <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm mb-8 relative overflow-hidden">
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-green-100/30 via-transparent to-blue-100/30"
-            animate={{ x: ['-100%', '100%'] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 bg-yellow-300 rounded-full"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{
+                scale: [0, 1, 0],
+                opacity: [0, 1, 0],
+                x: [0, (Math.cos(i * 60 * Math.PI / 180) * 40)],
+                y: [0, (Math.sin(i * 60 * Math.PI / 180) * 40)],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                delay: i * 0.2,
+                ease: "easeOut"
+              }}
+            />
+          ))}
+        </motion.div>
+      </div>
+
+      <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm mb-8 relative overflow-hidden">
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-green-100/30 via-transparent to-blue-100/30"
+          animate={{ x: ['-100%', '100%'] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+        />
         <CardContent className="p-8">
           <div className="space-y-6">
             <motion.div 
@@ -113,6 +132,19 @@ export default function SubmissionSuccess({ reportId, onNewReport }) {
                 whileHover={{ scale: 1.02 }}
               >
                 <div className="flex items-center gap-2 mb-2">
+                  <Clock className="w-5 h-5 text-amber-600" />
+                  <span className="font-semibold text-amber-800">Processing Status</span>
+                </div>
+                <p className="text-sm text-amber-700">Report submitted to traffic authorities for review</p>
+              </motion.div>
+            </div>
+
+            <motion.div 
+              className="p-4 bg-slate-50 rounded-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.0 }}
+            >
               <h3 className="font-semibold text-slate-800 mb-2">What happens next?</h3>
               <ul className="text-sm text-slate-600 space-y-1">
                 <li className="flex items-center gap-2">
@@ -135,6 +167,7 @@ export default function SubmissionSuccess({ reportId, onNewReport }) {
             </motion.div>
           </div>
         </CardContent>
+      </Card>
 
       <div className="space-y-4">
         <motion.div

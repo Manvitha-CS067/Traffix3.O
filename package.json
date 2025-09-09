@@ -14,7 +14,8 @@
     "react-router-dom": "^6.8.1",
     "lucide-react": "^0.263.1",
     "framer-motion": "^10.16.4",
-    "@tensorflow/tfjs": "^4.10.0"
+    "@tensorflow/tfjs": "^4.10.0",
+    "date-fns": "^2.30.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
