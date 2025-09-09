@@ -167,5 +167,3 @@ export default function SubmissionSuccess({ reportId, onNewReport }) {
         </motion.p>
       </div>
     </motion.div>
-  );
-}
