@@ -218,10 +218,12 @@ export default function Layout({ children, currentPageName }) {
                 >
                   <Shield className="w-6 h-6 text-white" />
                 </motion.div>
+              </motion.div>
               <div>
                 <h2 className="font-bold text-xl text-slate-800">Traffix</h2>
                 <p className="text-sm text-slate-500">AI Traffic Monitoring</p>
               </div>
+            </div>
           </SidebarHeader>
           
           <SidebarContent className="p-4">
@@ -331,7 +333,6 @@ export default function Layout({ children, currentPageName }) {
                 transition={{ duration: 4, repeat: Infinity }}
               >
                 <Users className="w-5 h-5 text-white" />
-              </motion.div>
               </motion.div>
               <div className="flex-1 min-w-0">
                 <p className="font-semibold text-slate-800 text-sm truncate">
